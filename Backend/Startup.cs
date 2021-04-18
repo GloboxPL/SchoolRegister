@@ -1,9 +1,6 @@
-using System;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -33,11 +30,11 @@ namespace SchoolRegister
             });
 
             services.AddDbContext<MainDbContext>(optitons =>
-                optitons.UseInMemoryDatabase(Configuration.GetConnectionString("localDB")));
+                optitons.UseNpgsql(Configuration.GetConnectionString("PostgreSql")));
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
             {
-                options.LoginPath = "/auth/index";
+                options.LoginPath = "/login";
             });
         }
 

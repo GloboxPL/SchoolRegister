@@ -1,6 +1,6 @@
-using Microsoft.EntityFrameworkCore;
 using SchoolRegister.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SchoolRegister.Database
@@ -14,31 +14,55 @@ namespace SchoolRegister.Database
             _context = context;
         }
 
-        public void CreateUser(User user)
+        public void CreateUsers(IEnumerable<User> users)
         {
-            _context.Users.Add(user);
+            _context.Users.AddRange(users);
         }
 
-        public User ReadUser(string email, string passwordHash)
+        public User VerifyUser(string email, string passwordHash)
         {
-            User user = _context.Users.Where(x => x.Email == email && x.PasswordHash == passwordHash).Single();
+            User user = _context.Users.Where(x => x.Email == email && x.Password == passwordHash).Single();
             return user;
         }
 
-        public User ReadUser(Guid id)
+        public User ReadUser(int id)
         {
             User user = _context.Users.Where(x => x.Id == id).Single();
             return user;
         }
 
-        public User UpdateUser(Guid id)
+        public User UpdateUser(User user)
         {
-            throw new NotImplementedException();
+            user = _context.Users.Update(user).Entity;
+            return user;
         }
 
         public void DeleteUser(Guid id)
         {
             throw new NotImplementedException();
+        }
+
+        public Group CreateGroup(Group group)
+        {
+            group = _context.Groups.Add(group).Entity;
+            return group;
+        }
+
+        public Group UpdateGroup(Group group)
+        {
+            group = _context.Groups.Update(group).Entity;
+            return group;
+        }
+
+        public Group ReadGroup(string name)
+        {
+            Group group = _context.Groups.Where(x => x.Name == name).Single();
+            return group;
+        }
+        public IEnumerable<Student> ReadStudents(int[] ids)
+        {
+            var students = _context.Students.Where(x => ids.Contains(x.Id));
+            return students;
         }
 
         public void SaveChanges()
