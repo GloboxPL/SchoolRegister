@@ -5,13 +5,11 @@ namespace SchoolRegister.Models
 {
     public class Teacher : User
     {
+        public virtual ICollection<Lesson> Lessons { get; set; } = new HashSet<Lesson>();
+
         public Teacher() : base() { }
 
         public Teacher(string name, string surname, string email, string password)
         : base(name, surname, email, password, Role.Teacher) { }
-
-
-
-        public ICollection<Lesson> Lessons { get; set; } = new HashSet<Lesson>();
     }
 }

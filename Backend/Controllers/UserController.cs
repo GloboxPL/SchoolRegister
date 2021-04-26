@@ -88,6 +88,21 @@ namespace SchoolRegister.Controllers
             }
         }
 
+                [HttpPost("parents/create")]
+        [Authorize(Roles = "Admin")]
+        public IActionResult CreateParents([FromBody] IEnumerable<Parent> parents)
+        {
+            try
+            {
+                _users.AddUsers(parents);
+                return Ok();
+            }
+            catch (DataMisalignedException)
+            {
+                return Conflict();
+            }
+        }
+
         [AllowAnonymous]
         [HttpPost("admin")]
         public IActionResult CreateAdmin()
@@ -95,5 +110,7 @@ namespace SchoolRegister.Controllers
             _users.AddSeedUsers();
             return Ok();
         }
+
+        
     }
 }

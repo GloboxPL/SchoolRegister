@@ -25,7 +25,7 @@ namespace SchoolRegister.Services
             return group;
         }
 
-        internal Group AddStudentsToGroup(string name, int[] ids)
+        public Group AddStudentsToGroup(string name, int[] ids)
         {
             Group group = _repo.ReadGroup(name);
             List<Student> students = _repo.ReadStudents(ids).ToList();
@@ -36,6 +36,24 @@ namespace SchoolRegister.Services
             _repo.UpdateGroup(group);
             _repo.SaveChanges();
             return group;
+        }
+
+        public Lesson AddLesson(LessonIn lessonIn)
+        {
+            DateTime time = DateTime.Parse(lessonIn.StartTime);
+            Lesson lesson = new Lesson
+            {
+                Teacher = _repo.ReadUser(lessonIn.TeacherId) as Teacher,
+                Group = _repo.ReadGroup(lessonIn.GroupName),
+                Subject = lessonIn.Subject,
+                Topic = lessonIn.Topic,
+                Notes = lessonIn.Notes,
+                StartTime = time,
+                EndTime = time.AddMinutes(45)
+            };
+            _repo.CreateLesson(lesson);
+            _repo.SaveChanges();
+            return lesson;
         }
     }
 }

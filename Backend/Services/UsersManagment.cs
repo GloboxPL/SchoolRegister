@@ -45,6 +45,7 @@ namespace SchoolRegister.Services
         {
             foreach (var user in users)
             {
+                user.Password = Argon2.Hash(user.Password);
                 if (user is Student)
                 {
                     user.Role = Role.Student;

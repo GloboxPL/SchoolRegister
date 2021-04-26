@@ -37,5 +37,13 @@ namespace SchoolRegister.Controllers
             Group group = _groups.AddStudentsToGroup(groupIn.Name, groupIn.Ids);
             return Ok();
         }
+
+        [HttpPost("lesson")]
+        [Authorize(Roles = "Admin")]
+        public IActionResult AddLesson([FromBody] LessonIn lessonIn)
+        {
+            Lesson lesson = _groups.AddLesson(lessonIn);
+            return Ok();
+        }
     }
 }

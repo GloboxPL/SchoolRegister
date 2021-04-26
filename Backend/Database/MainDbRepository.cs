@@ -37,11 +37,6 @@ namespace SchoolRegister.Database
             return user;
         }
 
-        public void DeleteUser(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
         public Group CreateGroup(Group group)
         {
             group = _context.Groups.Add(group).Entity;
@@ -59,10 +54,28 @@ namespace SchoolRegister.Database
             Group group = _context.Groups.Where(x => x.Name == name).Single();
             return group;
         }
+
         public IEnumerable<Student> ReadStudents(int[] ids)
         {
             var students = _context.Students.Where(x => ids.Contains(x.Id));
             return students;
+        }
+
+        public Lesson CreateLesson(Lesson lesson)
+        {
+            lesson = _context.Lessons.Add(lesson).Entity;
+            return lesson;
+        }
+
+        public Lesson ReadLesson(int lessonId)
+        {
+            Lesson lesson = _context.Lessons.Where(x => x.Id == lessonId).Single();
+            return lesson;
+        }
+
+        public void CreateAttendance(IEnumerable<Attendance> attendances)
+        {
+            _context.Attendances.AddRange(attendances);
         }
 
         public void SaveChanges()

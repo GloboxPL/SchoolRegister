@@ -6,7 +6,7 @@ namespace SchoolRegister.Models
     public class Student : User
     {
         public virtual ICollection<Parent> Parents { get; set; } = new HashSet<Parent>();
-        public ICollection<Group> Groups { get; set; } = new HashSet<Group>();
+        public virtual ICollection<Group> Groups { get; set; } = new HashSet<Group>();
 
         public Student() : base() { }
 
