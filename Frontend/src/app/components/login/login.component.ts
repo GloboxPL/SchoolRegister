@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -6,16 +8,27 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  email: string = '';
-  password: string = '';
 
-  constructor() {
+  signInForm: FormGroup;
+
+  constructor(private formBuilder: FormBuilder, private router: Router) {
+    this.signInForm = this.formBuilder.group({
+      email: '',
+      password: ''
+    });
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
   }
 
-  login() {
-    debugger;
+  signIn(): void {
+    const signInData = {
+      username: this.signInForm.controls['email'].value,
+      password: this.signInForm.controls['password'].value
+    };
+    console.log(signInData.username);
+
+    this.signInForm.reset();
+    this.router.navigateByUrl('users');
   }
 }

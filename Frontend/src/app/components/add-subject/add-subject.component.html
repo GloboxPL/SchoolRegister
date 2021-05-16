@@ -1,0 +1,42 @@
+<h1>Add new subject</h1>
+<mat-form-field appearance="fill">
+    <mat-label>Subject name</mat-label>
+    <input matInput placeholder=Science>
+</mat-form-field>
+<mat-form-field appearance="fill">
+    <mat-label>Class</mat-label>
+    <mat-select>
+        <mat-option value="option">1a</mat-option>
+        <mat-option value="option">1b</mat-option>
+        <mat-option value="option">2a</mat-option>
+    </mat-select>
+</mat-form-field>
+<mat-form-field appearance="fill">
+    <mat-label>Teacher</mat-label>
+    <mat-select>
+        <mat-option value="option">John Kowalsky</mat-option>
+        <mat-option value="option">Mike Perry</mat-option>
+        <mat-option value="option">Steven Smith</mat-option>
+    </mat-select>
+</mat-form-field>
+<mat-form-field appearance='fill'>
+    <mat-label>Hours per week</mat-label>
+    <input matInput placeholder=1 type="number" min=1 autocomplete="off">
+</mat-form-field>
+<div>
+    <mat-form-field appearance="fill">
+        <mat-label>Day</mat-label>
+        <mat-select>
+            <mat-option value="option">Monday</mat-option>
+            <mat-option value="option">Tuesday</mat-option>
+            <mat-option value="option">Wednesday</mat-option>
+            <mat-option value="option">Thursday</mat-option>
+            <mat-option value="option">Friday</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance='fill'>
+        <mat-label>Hours</mat-label>
+        <input matInput type="time" autocomplete="off">
+    </mat-form-field>
+</div>
+<button mat-raised-button type='submit' color='primary'>Add subject</button>

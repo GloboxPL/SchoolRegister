@@ -1,20 +1,32 @@
 <mat-toolbar color="primary">
-  <span>School Name</span>
-  <span class="spacer"></span>
-  <button mat-button><a routerLink="/" routerLinkActive="active">
+    <span>School Name</span>
+    <span class="spacer"></span>
+    <div>
+        <button mat-button (click)="navUsers()">
       <span class="material-icons">people </span>
-      Users</a>
+      Users
+    </button>
+    </div>
+    <div>
+        <button mat-button (click)="navClasses()">
+      <span class="material-icons">group_work </span>
+      Classes
+    </button>
+    </div>
+    <div>
+        <button mat-button (click)="navSubjects()">
+      <span class="material-icons"> date_range </span>
+      Subjects
+    </button>
+    </div>
+    <div>
+        <button mat-button (click)="logOut()">
+    <span class="material-icons"> logout </span>
+    Log Out
   </button>
-  <button mat-button>
-    <span class="material-icons">group_work </span>
-    Classes
-  </button>
-  <button mat-button>
-    <span class="material-icons"> date_range </span>
-    Lessons
-  </button>
+    </div>
 </mat-toolbar>
 
 <div class="content" role="main">
-  <router-outlet></router-outlet>
+    <router-outlet></router-outlet>
 </div>
