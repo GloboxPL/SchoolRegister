@@ -88,7 +88,7 @@ namespace SchoolRegister.Controllers
             }
         }
 
-                [HttpPost("parents/create")]
+        [HttpPost("parents/create")]
         [Authorize(Roles = "Admin")]
         public IActionResult CreateParents([FromBody] IEnumerable<Parent> parents)
         {
@@ -110,7 +110,5 @@ namespace SchoolRegister.Controllers
             _users.AddSeedUsers();
             return Ok();
         }
-
-        
     }
 }

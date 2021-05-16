@@ -1,0 +1,24 @@
+<mat-card class="box">
+  <mat-card-header>
+    <mat-card-title>Zaloguj się</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form class="my-form">
+      <div>
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="Email" name="email">
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>Hasło</mat-label>
+          <input matInput placeholder="Hasło" name="password" type="password">
+        </mat-form-field>
+      </div>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button (click)="login()" color="primary">Zaloguj</button>
+  </mat-card-actions>
+</mat-card>
