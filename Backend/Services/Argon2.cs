@@ -9,6 +9,7 @@ namespace SchoolRegister.Services
         private static readonly byte[] saltBytes = { 1, 2, 3, 4, 5 };
         public static string Hash(string password)
         {
+            return password;
             byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
             var argon = new Argon2id(passwordBytes);
             argon.DegreeOfParallelism = 16;

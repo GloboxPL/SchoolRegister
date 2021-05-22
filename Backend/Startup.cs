@@ -12,6 +12,8 @@ namespace SchoolRegister
 {
     public class Startup
     {
+        private readonly string myCors = "MyCors";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -22,6 +24,15 @@ namespace SchoolRegister
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: myCors,
+                                  builder =>
+                                  {
+                                      builder.AllowAnyOrigin();
+                                      builder.AllowAnyHeader();
+                                  });
+            });
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -48,6 +59,8 @@ namespace SchoolRegister
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SchoolRegister v1"));
             }
+
+            app.UseCors(myCors);
 
             app.UseHttpsRedirection();
 
