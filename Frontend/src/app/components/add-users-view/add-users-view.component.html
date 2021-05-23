@@ -1,0 +1,34 @@
+<h1>Add new users</h1>
+<div>
+    <form>
+        <div *ngFor="let item of [].constructor(5); let i = index">
+            <span class="material-icons">
+                add_circle
+            </span>
+            <mat-form-field appearance="fill">
+                <mat-label>Name</mat-label>
+                <input matInput placeholder=John>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Surname</mat-label>
+                <input matInput placeholder=Kowalsky>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Email</mat-label>
+                <input matInput placeholder=user@email.com>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Role</mat-label>
+                <mat-select>
+                    <mat-option value="option">Admin</mat-option>
+                    <mat-option value="option">Teacher</mat-option>
+                    <mat-option value="option">Student</mat-option>
+                    <mat-option value="option">Parent</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <mat-divider></mat-divider>
+    </form>
+</div>
+<button mat-raised-button type='submit' color='primary'>Add users</button>

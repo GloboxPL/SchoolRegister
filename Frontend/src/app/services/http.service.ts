@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../models/User';
 
@@ -8,7 +8,12 @@ import { User } from '../models/User';
 })
 export class HttpService {
 
-  private readonly PATH = 'http://localhost:5000/';
+  private readonly PATH = 'https://localhost:5001/';
+  private headers = new HttpHeaders({
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Credentials': 'true'
+  });
+  private options = { headers: this.headers, withCredentials: true };
 
   constructor(private http: HttpClient) { }
 
@@ -17,10 +22,10 @@ export class HttpService {
       email: emailIn,
       password: passwordIn
     });
-    return this.http.post<User>(this.PATH + 'login', body);
+    return this.http.post<User>(this.PATH + 'login', body, this.options);
   }
 
   logOut(): void {
-    this.http.post(this.PATH + 'logout', null);
+    this.http.post(this.PATH + 'logout', null, this.options).subscribe(value => { });
   }
 }

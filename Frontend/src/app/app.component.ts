@@ -15,19 +15,28 @@ export class AppComponent {
     }
   }
 
-  navUsers(): void {
-    this.router.navigateByUrl('users');
+  navAddUsers(): void {
+    this.router.navigateByUrl('add-users');
   }
 
-  navClasses(): void {
-    this.router.navigateByUrl('classes');
+  navCreateClass(): void {
+    this.router.navigateByUrl('create-class');
   }
 
-  navSubjects(): void {
-    this.router.navigateByUrl('subjects');
+  navAddLesson(): void {
+    this.router.navigateByUrl('add-lesson');
+  }
+
+  navTimetable(): void {
+    this.router.navigateByUrl('timetable');
+  }
+
+  navMarksAndFrequency(): void {
+    this.router.navigateByUrl('marks-frequency');
   }
 
   logOut(): void {
+    this.data.logOut();
     this.router.navigateByUrl('');
   }
 

@@ -3,5 +3,6 @@ export enum Role {
     Parent,
     Teacher,
     Master,
-    Admin
+    Admin,
+    None
 }

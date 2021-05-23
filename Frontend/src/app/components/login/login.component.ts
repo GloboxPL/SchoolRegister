@@ -9,7 +9,7 @@ import { HttpService } from 'src/app/services/http.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
   signInForm: FormGroup;
 
@@ -20,15 +20,11 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-  }
-
   signIn(): void {
-    const email = this.signInForm.controls['email'].value;
-    const password = this.signInForm.controls['password'].value;
+    const email = this.signInForm.controls.email.value;
+    const password = this.signInForm.controls.password.value;
     this.data.signIn(email, password);
 
     this.signInForm.reset();
-    this.router.navigateByUrl('users');
   }
 }

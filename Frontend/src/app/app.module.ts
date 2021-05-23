@@ -13,14 +13,18 @@ import { AddUsersComponent } from './components/add-users/add-users.component';
 import { MatSelectModule } from '@angular/material/select';
 import { AddSubjectComponent } from './components/add-subject/add-subject.component';
 import { HttpClientModule } from '@angular/common/http';
-// import { CookieService } from 'ngx-cookie-service';
+import { CommonModule } from '@angular/common';
+import { AddUsersViewComponent } from './components/add-users-view/add-users-view.component';
+import {MatCardModule} from '@angular/material/card';
+import {MatDividerModule} from '@angular/material/divider';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     AddUsersComponent,
-    AddSubjectComponent
+    AddSubjectComponent,
+    AddUsersViewComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +38,9 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    // CookieService
+    CommonModule,
+    MatCardModule,
+    MatDividerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,34 +1,48 @@
 <mat-toolbar color="primary">
     <span>School Name</span>
     <span class="spacer"></span>
-    <ng-container [ngSwitch]="data.user.role">
-        <ng-container *ngSwitchCase="4">
-            <div>
-                <button mat-button (click)="navUsers()">
-          <span class="material-icons">people </span>
-          Users
+    <div *ngIf="data.user.role==4">
+        <button mat-button (click)="navAddUsers()">
+            <span class="material-icons">people </span>
+            Add users
         </button>
-            </div>
-            <div>
-                <button mat-button (click)="navClasses()">
-          <span class="material-icons">group_work </span>
-          Classes
+    </div>
+    <div *ngIf="data.user.role==4">
+        <button mat-button (click)="navCreateClass()">
+            <span class="material-icons">group_work </span>
+            Create class
         </button>
-            </div>
-            <div>
-                <button mat-button (click)="navSubjects()">
-          <span class="material-icons"> date_range </span>
-          Subjects
+    </div>
+    <div *ngIf="data.user.role==4">
+        <button mat-button (click)="navAddLesson()">
+            <span class="material-icons"> post_add </span>
+            Add lesson
         </button>
-            </div>
-            <div>
-                <button mat-button (click)="logOut()">
-          <span class="material-icons"> logout </span>
-          Log Out
+    </div>
+    <div *ngIf="data.user.role==2">
+        <button mat-button (click)="navTimetable()">
+            <span class="material-icons"> date_range </span>
+            Timetable & Lessons
         </button>
-            </div>
-        </ng-container>
-    </ng-container>
+    </div>
+    <div *ngIf="data.user.role==1 || data.user.role==0">
+        <button mat-button (click)="navTimetable()">
+            <span class="material-icons"> date_range </span>
+            Timetable
+        </button>
+    </div>
+    <div *ngIf="data.user.role==0 || data.user.role==1 || data.user.role==2">
+        <button mat-button (click)="navMarksAndFrequency()">
+            <span class="material-icons"> filter_5 </span>
+            Marks & Frequency
+        </button>
+    </div>
+    <div *ngIf="data.user.id>0">
+        <button mat-button (click)="logOut()">
+            <span class="material-icons"> logout </span>
+            Log Out
+        </button>
+    </div>
 </mat-toolbar>
 
 <div class="content" role="main">

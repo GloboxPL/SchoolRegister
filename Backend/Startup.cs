@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,12 +27,14 @@ namespace SchoolRegister
         {
             services.AddCors(options =>
             {
-                options.AddPolicy(name: myCors,
-                                  builder =>
-                                  {
-                                      builder.AllowAnyOrigin();
-                                      builder.AllowAnyHeader();
-                                  });
+                options.AddPolicy(name: myCors, builder =>
+                {
+                    builder.WithOrigins("http://localhost:4200");
+                    builder.AllowAnyHeader();
+                    builder.AllowAnyMethod();
+                    builder.AllowCredentials();
+                    builder.SetPreflightMaxAge(new TimeSpan(1, 0, 0));
+                });
             });
 
             services.AddControllers();

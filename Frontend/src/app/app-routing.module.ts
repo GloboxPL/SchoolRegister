@@ -3,10 +3,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddUsersComponent } from './components/add-users/add-users.component';
 import { AddSubjectComponent } from './components/add-subject/add-subject.component';
+import { AddUsersViewComponent } from './components/add-users-view/add-users-view.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'users', component: AddUsersComponent },
+  { path: 'users', component: AddUsersViewComponent },
   { path: 'classes', component: LoginComponent },
   { path: 'subjects', component: AddSubjectComponent }
 ];

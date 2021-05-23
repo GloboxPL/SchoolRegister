@@ -16,11 +16,15 @@ export class DataService {
   signIn(email: string, password: string): void {
     this.http.signIn(email, password).subscribe(value => {
       this.user = value;
+      this.router.navigateByUrl('users');
+    }, e => {
+      console.log(e);
     });
   }
 
   logOut(): void {
     this.http.logOut();
+    this.user = this.guestUser();
   }
 
   guestUser(): User {
@@ -29,7 +33,7 @@ export class DataService {
       name: 'guest',
       surname: 'guest',
       email: 'email',
-      role: Role.Student
+      role: Role.None
     });
     return user;
   }

@@ -72,11 +72,14 @@ namespace SchoolRegister.Services
 
         }
 
-        public User GetUserByAuthData(ClaimsPrincipal user)
+        public User GetUserByAuthData(ClaimsPrincipal claim)
         {
-            int id = Int32.Parse(user.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
-            return _repo.ReadUser(id);
+            int id = Int32.Parse(claim.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
+            User user = _repo.ReadUser(id);
+            user.Password = String.Empty;
+            return user;
         }
+        
         private bool IsValidUsers(IEnumerable<User> users)
         {
             foreach (var user in users)
