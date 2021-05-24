@@ -17,6 +17,7 @@ import { CommonModule } from '@angular/common';
 import { AddUsersViewComponent } from './components/add-users-view/add-users-view.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatDividerModule} from '@angular/material/divider';
+import { TimetableViewComponent } from './components/timetable-view/timetable-view.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {MatDividerModule} from '@angular/material/divider';
     LoginComponent,
     AddUsersComponent,
     AddSubjectComponent,
-    AddUsersViewComponent
+    AddUsersViewComponent,
+    TimetableViewComponent
   ],
   imports: [
     BrowserModule,

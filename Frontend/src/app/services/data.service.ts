@@ -16,7 +16,12 @@ export class DataService {
   signIn(email: string, password: string): void {
     this.http.signIn(email, password).subscribe(value => {
       this.user = value;
-      this.router.navigateByUrl('users');
+      if (this.user.role === 4) {
+        this.router.navigateByUrl('add-users');
+      }
+      else {
+        this.router.navigateByUrl('timetable');
+      }
     }, e => {
       console.log(e);
     });
