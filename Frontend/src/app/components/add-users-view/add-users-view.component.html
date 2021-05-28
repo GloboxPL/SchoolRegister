@@ -1,41 +1,55 @@
-<h1>Add new users</h1>
 <div>
-    <div>
-        <mat-form-field appearance='fill'>
-            <mat-label>Count</mat-label>
-            <input matInput type="number" min="1" max="20" [(ngModel)]="count">
-        </mat-form-field>
-    </div>
-    <div>
-        <form [formGroup]='this.addUserForm' (ngSubmit)='this.addUsers()'>
-            <div *ngFor="let item of [].constructor(count); let i = index">
-                <button mat-flat-button color="accent">
-                    <span>{{i+1}}</span>
-                </button>
-                <mat-form-field appearance="fill">
-                    <mat-label>Name</mat-label>
-                    <input matInput placeholder=John>
-                </mat-form-field>
-                <mat-form-field appearance="fill">
-                    <mat-label>Surname</mat-label>
-                    <input matInput placeholder=Smith>
-                </mat-form-field>
-                <mat-form-field appearance="fill">
-                    <mat-label>Email</mat-label>
-                    <input matInput type="email" placeholder=user@email.com>
-                </mat-form-field>
-                <mat-form-field appearance="fill">
-                    <mat-label>Role</mat-label>
-                    <mat-select>
-                        <mat-option value="option">Admin</mat-option>
-                        <mat-option value="option">Teacher</mat-option>
-                        <mat-option value="option">Student</mat-option>
-                        <mat-option value="option">Parent</mat-option>
-                    </mat-select>
-                </mat-form-field>
+    <mat-card class="card">
+        <div class="buttons">
+            <button mat-mini-fab type="button" color='primary' (click)="pushNewElement()" matTooltip="Add next user">
+                <span class="material-icons">
+                    person_add
+                </span>
+            </button>
+            <span class="space"></span>
+            <button mat-mini-fab type="button" color='primary' (click)="popLastElement()" matTooltip="Remove last user">
+                <span class="material-icons"> person_remove </span>
+            </button>
+        </div>
+        <form [formGroup]='addUserForm' (ngSubmit)="SaveData()">
+            <div formArrayName="users" *ngFor="let item of getControls(); let i = index">
+                <mat-divider></mat-divider>
+                <div formGroupName={{i}}>
+                    <span class="numeration">{{i+1}}</span>
+                    <span class="space"></span>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Name</mat-label>
+                        <input matInput placeholder=John formControlName="name">
+                    </mat-form-field>
+                    <span class="space"></span>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Surname</mat-label>
+                        <input matInput placeholder=Smith formControlName="surname">
+                    </mat-form-field>
+                    <span class="space"></span>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Email</mat-label>
+                        <input matInput type="email" placeholder=user@email.com formControlName="email">
+                    </mat-form-field>
+                    <span class="space"></span>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Role</mat-label>
+                        <mat-select formControlName="role">
+                            <mat-option value="4">Admin</mat-option>
+                            <mat-option value="2">Teacher</mat-option>
+                            <mat-option value="0">Student</mat-option>
+                            <mat-option value="1">Parent</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
             </div>
             <mat-divider></mat-divider>
+            <div class="add">
+                <button mat-raised-button type='submit' color='primary'>Add users</button>
+                <span class="space"></span>
+                <span *ngIf="isError" class="error">Invalid data! Enter appropriate names, surnames, emails and choose
+                    role.</span>
+            </div>
         </form>
-    </div>
-    <button mat-raised-button type='submit' color='primary'>Add users</button>
+    </mat-card>
 </div>
