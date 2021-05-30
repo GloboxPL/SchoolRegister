@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { Lesson } from '../models/Lesson';
 import { NewClassDto } from '../models/NewClassDto';
 import { NewLessonDto } from '../models/NewLessonDto';
 import { User } from '../models/User';
@@ -19,18 +20,14 @@ export class DataService {
   studentsWithoutClass: UserMinDto[] | undefined;
   teachers: UserMinDto[] | undefined;
   classes: string[] = [];
+  lessons: Lesson[] = [];
 
   signIn(email: string, password: string): void {
     this.http.signIn(email, password).subscribe(value => {
       this.user = value;
       this.isSignInError.next(false);
       this.getStartData();
-      if (this.user.role === 4) {
-        this.router.navigateByUrl('add-users');
-      }
-      else {
-        this.router.navigateByUrl('timetable');
-      }
+      this.router.navigateByUrl('welcome');
     }, e => {
       console.log(e);
       this.isSignInError.next(true);
@@ -45,6 +42,10 @@ export class DataService {
           this.getTeachers();
           this.getClasses();
           break;
+        case 2:
+          this.getLessonsByTeacher(this.user.id);
+          break;
+
         default:
           break;
       }
@@ -84,6 +85,19 @@ export class DataService {
 
   addNewLesson(newLesson: NewLessonDto): void {
     this.http.addNewLesson(newLesson);
+    this.router.navigateByUrl('success');
+  }
+
+  getLessonsByTeacher(id: number): void {
+    this.http.getLessonsByTeacher(id).subscribe(value => {
+      this.lessons = value;
+    });
+  }
+
+  editLesson(id: number | null): void {
+    if (id === null) {
+      return;
+    }
     this.router.navigateByUrl('success');
   }
 }

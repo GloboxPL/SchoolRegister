@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Lesson } from 'src/app/models/Lesson';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-timetable',
@@ -12,12 +14,11 @@ export class TimetableComponent implements OnInit {
   accentColor = '#ffd740';
   emptyColor = 'white';
   tiles: Tile[] = [];
-  lessons: any[] = [
-    { day: 1, lesson: 1, text1: 'English', color: 'red' },
-    { day: 3, lesson: 4, text1: 'Science', color: 'green' },
-  ];
+  lessons: Lesson[] = [];
 
-  constructor() { }
+  constructor(private data: DataService) {
+    this.lessons = data.lessons;
+  }
 
   ngOnInit(): void {
     this.generateTable();
@@ -27,7 +28,7 @@ export class TimetableComponent implements OnInit {
     this.generateFirstRow();
     this.generateBlocks();
     this.lessons.forEach(lesson => {
-      this.insertTotable(lesson.day, lesson.lesson, lesson.text1, '');
+      this.insertTotable(lesson.id, lesson.day, lesson.time, lesson.subject, '');
     });
   }
 
@@ -35,6 +36,7 @@ export class TimetableComponent implements OnInit {
     const days = ['', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
     days.forEach(day => {
       const tile: Tile = {
+        id: null,
         text1: day,
         text2: '',
         color: this.primaryColor
@@ -48,6 +50,7 @@ export class TimetableComponent implements OnInit {
     for (let i = 0; i < this.blocksCount * 6; i++) {
       if (i % 6 === 0) {
         tile = {
+          id: null,
           text1: 'Lesson \n' + (i / 6 + 1).toString(),
           text2: this.getHour(i / 6 + 7),
           color: this.primaryColor
@@ -55,6 +58,7 @@ export class TimetableComponent implements OnInit {
       }
       else {
         tile = {
+          id: null,
           text1: '',
           text2: '',
           color: this.emptyColor
@@ -68,8 +72,9 @@ export class TimetableComponent implements OnInit {
     return hour.toString() + ':00 - ' + hour.toString() + ':45';
   }
 
-  insertTotable(day: number, lesson: number, text1: string, text2: string, color: string = this.accentColor): void {
-    const i = lesson * 6 + day + 1;
+  insertTotable(id: number, day: number, lesson: number, text1: string, text2: string, color: string = this.accentColor): void {
+    const i = lesson * 6 + day;
+    this.tiles[i].id = id;
     this.tiles[i].text1 = text1;
     this.tiles[i].text2 = text2;
     this.tiles[i].color = color;
@@ -78,9 +83,17 @@ export class TimetableComponent implements OnInit {
   modulo(n: number, d: number): number {
     return n % d;
   }
+
+  clicked(i: number): void {
+    if (i < 6 || this.modulo(i, 6) === 0 || this.tiles[i].id === null) {
+      return;
+    }
+    this.data.editLesson(this.tiles[i].id);
+  }
 }
 
 export interface Tile {
+  id: number | null;
   text1: string;
   text2: string;
   color: string;

@@ -29,5 +29,12 @@ namespace SchoolRegister.Controllers
             _lessons.CheckAttendance(attendances, lessonId);
             return Ok();
         }
+
+        [HttpGet("lessons-teacher/{id}")]
+        public ActionResult GetTeacherLessons([FromRoute] int id)
+        {
+            var lessons = _lessons.GetTeacherLessons(id);
+            return Json(lessons);
+        }
     }
 }

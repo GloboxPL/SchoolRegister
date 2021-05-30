@@ -23,6 +23,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import { TimetableComponent } from './components/timetable/timetable.component';
 import { AddLessonViewComponent } from './components/add-lesson-view/add-lesson-view.component';
 import { SuccessViewComponent } from './components/success-view/success-view.component';
+import { WelcomeViewComponent } from './components/welcome-view/welcome-view.component';
+import { LessonEditViewComponent } from './components/lesson-edit-view/lesson-edit-view.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { SuccessViewComponent } from './components/success-view/success-view.com
     CreateClassViewComponent,
     TimetableComponent,
     AddLessonViewComponent,
-    SuccessViewComponent
+    SuccessViewComponent,
+    WelcomeViewComponent,
+    LessonEditViewComponent
   ],
   imports: [
     BrowserModule,

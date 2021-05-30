@@ -5,6 +5,7 @@ import { User } from '../models/User';
 import { UserMinDto } from '../models/UserMinDto';
 import { NewClassDto } from '../models/NewClassDto';
 import { NewLessonDto } from '../models/NewLessonDto';
+import { Lesson } from '../models/Lesson';
 
 @Injectable({
   providedIn: 'root'
@@ -54,5 +55,9 @@ export class HttpService {
 
   addNewLesson(newLesson: NewLessonDto): void {
     this.http.post(this.PATH + 'add-lesson', newLesson, this.options).subscribe(value => { });
+  }
+
+  getLessonsByTeacher(id: number): Observable<Lesson[]> {
+    return this.http.get<Lesson[]>(this.PATH + 'lessons-teacher/' + id, this.options);
   }
 }

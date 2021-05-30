@@ -97,6 +97,12 @@ namespace SchoolRegister.Database
             return lessons;
         }
 
+        public IEnumerable<Lesson> ReadLessonsByTeacher(int id)
+        {
+            var lessons = _context.Lessons.Where(x => x.Teacher.Id == id).AsEnumerable();
+            return lessons;
+        }
+
         public void CreateAttendance(IEnumerable<Attendance> attendances)
         {
             _context.Attendances.AddRange(attendances);

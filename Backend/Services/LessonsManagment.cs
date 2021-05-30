@@ -1,3 +1,4 @@
+using System.Collections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,12 @@ namespace SchoolRegister.Services
             }
             _repo.CreateAttendance(attandancesList);
             _repo.SaveChanges();
+        }
+
+        public IEnumerable<Lesson> GetTeacherLessons(int id)
+        {
+            var lessons = _repo.ReadLessonsByTeacher(id);
+            return lessons;
         }
     }
 }

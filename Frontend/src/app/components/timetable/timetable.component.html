@@ -1,6 +1,6 @@
 <div class="timetable">
     <mat-grid-list cols="6" rowHeight="4:1">
-        <mat-grid-tile *ngFor="let block of tiles; let i = index" [style.background]="block.color">
+        <mat-grid-tile *ngFor="let block of tiles; let i = index" [style.background]="block.color" (click)="clicked(i)">
             <div *ngIf="i<6 || modulo(i,6)==0; else template" class="headers">
                 {{block.text1}}<br> {{block.text2}}
             </div>
