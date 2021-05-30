@@ -1,28 +1,29 @@
 <div>
     <mat-card class="card">
         <mat-card-header>
-            <div>
+            <form [formGroup]='classForm' (ngSubmit)='addClass()'>
                 <mat-form-field appearance="fill">
                     <mat-label>Class name</mat-label>
-                    <input matInput placeholder=1a>
+                    <input matInput placeholder=1a formControlName='name'>
                 </mat-form-field>
-            </div>
-            <div>
+                <span class="space10px"></span>
                 <mat-form-field appearance="fill">
                     <mat-label>Main teacher</mat-label>
-                    <mat-select>
+                    <mat-select formControlName='teacherId'>
                         <mat-option *ngFor="let teacher of data.teachers; let i = index" value={{teacher.id}}>
                             {{teacher.surname}} {{teacher.name}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-            </div>
+                <span class="space10px"></span>
+                <button mat-raised-button type='submit' color='primary'>Create class</button>
+            </form>
         </mat-card-header>
         <div>
             <section>
                 <ul>
-                    <li *ngFor="let student of data.studentsWithoutClass">
-                        <mat-checkbox>
+                    <li *ngFor="let student of data.studentsWithoutClass; let i = index">
+                        <mat-checkbox [(ngModel)]="selected[i]">
                             {{student.surname}} {{student.name}}
                         </mat-checkbox>
                     </li>

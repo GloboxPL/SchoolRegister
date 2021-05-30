@@ -55,6 +55,7 @@ export class DataService {
 
   addNewUsers(users: User[]): void {
     this.http.addNewUsers(users);
+    this.getStudentsWithoutClass();
   }
 
   getTeachers(): void {
@@ -67,5 +68,6 @@ export class DataService {
 
   addNewClass(newClass: NewClassDto): void {
     this.http.addNewClass(newClass);
+    this.getStudentsWithoutClass();
   }
 }
