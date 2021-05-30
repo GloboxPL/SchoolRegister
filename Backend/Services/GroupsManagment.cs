@@ -1,9 +1,11 @@
+using System.Collections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using SchoolRegister.Database;
 using SchoolRegister.Models;
 using SchoolRegister.Models.Dto;
+using Backend.Models.Dto;
 
 namespace SchoolRegister.Services
 {
@@ -27,31 +29,21 @@ namespace SchoolRegister.Services
             return group;
         }
 
-        public Group AddStudentsToGroup(string name, int[] ids)
+        public IEnumerable<string> GetGroups()
         {
-            Group group = _repo.ReadGroup(name);
-            List<Student> students = _repo.ReadStudents(ids).ToList();
-            foreach (var student in students)
-            {
-                group.Students.Add(student);
-            }
-            _repo.UpdateGroup(group);
-            _repo.SaveChanges();
-            return group;
+            var groups = _repo.ReadAllGroups();
+            return groups;
         }
 
-        public Lesson AddLesson(LessonIn lessonIn)
+        public Lesson AddLesson(NewLessonDto lessonDto)
         {
-            DateTime time = DateTime.Parse(lessonIn.StartTime);
             Lesson lesson = new Lesson
             {
-                Teacher = _repo.ReadUser(lessonIn.TeacherId) as Teacher,
-                Group = _repo.ReadGroup(lessonIn.GroupName),
-                Subject = lessonIn.Subject,
-                Topic = lessonIn.Topic,
-                Notes = lessonIn.Notes,
-                StartTime = time,
-                EndTime = time.AddMinutes(45)
+                Teacher = _repo.ReadUser(lessonDto.TeacherId) as Teacher,
+                Group = _repo.ReadGroup(lessonDto.ClassName),
+                Subject = lessonDto.Name,
+                Day = lessonDto.Day,
+                Time = lessonDto.Lesson
             };
             _repo.CreateLesson(lesson);
             _repo.SaveChanges();

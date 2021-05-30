@@ -1,3 +1,4 @@
+using System.Collections;
 using SchoolRegister.Models;
 using System;
 using System.Collections.Generic;
@@ -82,6 +83,18 @@ namespace SchoolRegister.Database
         {
             Lesson lesson = _context.Lessons.Where(x => x.Id == lessonId).Single();
             return lesson;
+        }
+
+        public IEnumerable<string> ReadAllGroups()
+        {
+            var groups = _context.Groups.Select(x => x.Name).AsEnumerable();
+            return groups;
+        }
+
+        public IEnumerable<Lesson> ReadLessonsByClass(string name)
+        {
+            var lessons = _context.Lessons.Where(x => x.Group.Name == name).AsEnumerable();
+            return lessons;
         }
 
         public void CreateAttendance(IEnumerable<Attendance> attendances)

@@ -32,7 +32,7 @@ namespace SchoolRegister.Controllers
                 if (claimsPrincipal != null)
                 {
                     await HttpContext.SignInAsync(claimsPrincipal);
-                    User user = _users.GetUserByAuthData(claimsPrincipal);
+                    User user = _users.GetUserByAuthData(claimsPrincipal) as User;
                     return Json(user);
                 }
             }

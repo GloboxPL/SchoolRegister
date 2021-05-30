@@ -1,3 +1,4 @@
+using Backend.Models.Dto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SchoolRegister.Database;
@@ -26,11 +27,19 @@ namespace SchoolRegister.Controllers
             return Json(group);
         }
 
-        [HttpPost("lesson")]
+        [HttpGet("classes-list")]
         [Authorize(Roles = "Admin")]
-        public IActionResult AddLesson([FromBody] LessonIn lessonIn)
+        public ActionResult GetGroups()
         {
-            Lesson lesson = _groups.AddLesson(lessonIn);
+            var groups = _groups.GetGroups();
+            return Json(groups);
+        }
+
+        [HttpPost("add-lesson")]
+        [Authorize(Roles = "Admin")]
+        public IActionResult AddLesson([FromBody] NewLessonDto lesson)
+        {
+            _groups.AddLesson(lesson);
             return Ok();
         }
     }

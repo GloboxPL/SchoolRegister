@@ -26,6 +26,10 @@ namespace SchoolRegister.Database
             {
                 entity.HasKey(x => x.Name);
             });
+            modelBuilder.Entity<Lesson>(entity =>
+            {
+                entity.HasKey(x => x.Id);
+            });
         }
 
     }

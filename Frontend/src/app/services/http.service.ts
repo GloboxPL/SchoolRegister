@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { User } from '../models/User';
 import { UserMinDto } from '../models/UserMinDto';
 import { NewClassDto } from '../models/NewClassDto';
+import { NewLessonDto } from '../models/NewLessonDto';
 
 @Injectable({
   providedIn: 'root'
@@ -45,5 +46,13 @@ export class HttpService {
 
   addNewClass(newClass: NewClassDto): void {
     this.http.post(this.PATH + 'create-class', newClass, this.options).subscribe(value => { });
+  }
+
+  getClasses(): Observable<string[]> {
+    return this.http.get<string[]>(this.PATH + 'classes-list', this.options);
+  }
+
+  addNewLesson(newLesson: NewLessonDto): void {
+    this.http.post(this.PATH + 'add-lesson', newLesson, this.options).subscribe(value => { });
   }
 }

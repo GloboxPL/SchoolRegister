@@ -44,8 +44,8 @@ namespace SchoolRegister
             });
 
             services.AddDbContext<MainDbContext>(optitons =>
-                optitons.UseNpgsql(Configuration.GetConnectionString("PostgreSql"))
-                .UseLazyLoadingProxies());
+                optitons.UseNpgsql(Configuration.GetConnectionString("PostgreSql")));
+                // .UseLazyLoadingProxies());
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
             {

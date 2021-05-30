@@ -22,6 +22,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { TimetableComponent } from './components/timetable/timetable.component';
 import { AddLessonViewComponent } from './components/add-lesson-view/add-lesson-view.component';
+import { SuccessViewComponent } from './components/success-view/success-view.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { AddLessonViewComponent } from './components/add-lesson-view/add-lesson-
     TimetableViewComponent,
     CreateClassViewComponent,
     TimetableComponent,
-    AddLessonViewComponent
+    AddLessonViewComponent,
+    SuccessViewComponent
   ],
   imports: [
     BrowserModule,

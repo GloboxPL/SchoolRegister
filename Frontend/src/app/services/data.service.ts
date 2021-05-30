@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { NewClassDto } from '../models/NewClassDto';
+import { NewLessonDto } from '../models/NewLessonDto';
 import { User } from '../models/User';
 import { UserMinDto } from '../models/UserMinDto';
 import { HttpService } from './http.service';
@@ -17,6 +18,7 @@ export class DataService {
   isSignInError = new BehaviorSubject<boolean>(false);
   studentsWithoutClass: UserMinDto[] | undefined;
   teachers: UserMinDto[] | undefined;
+  classes: string[] = [];
 
   signIn(email: string, password: string): void {
     this.http.signIn(email, password).subscribe(value => {
@@ -41,6 +43,7 @@ export class DataService {
         case 4:
           this.getStudentsWithoutClass();
           this.getTeachers();
+          this.getClasses();
           break;
         default:
           break;
@@ -55,7 +58,8 @@ export class DataService {
 
   addNewUsers(users: User[]): void {
     this.http.addNewUsers(users);
-    this.getStudentsWithoutClass();
+    this.getStartData();
+    this.router.navigateByUrl('success');
   }
 
   getTeachers(): void {
@@ -68,6 +72,18 @@ export class DataService {
 
   addNewClass(newClass: NewClassDto): void {
     this.http.addNewClass(newClass);
-    this.getStudentsWithoutClass();
+    this.getStartData();
+    this.router.navigateByUrl('success');
+  }
+
+  getClasses(): void {
+    this.http.getClasses().subscribe(value => {
+      this.classes = value;
+    });
+  }
+
+  addNewLesson(newLesson: NewLessonDto): void {
+    this.http.addNewLesson(newLesson);
+    this.router.navigateByUrl('success');
   }
 }

@@ -1,1 +1,67 @@
-<p>add-lesson-view works!</p>
+<div>
+    <mat-card class="card">
+        <form [formGroup]='addLessonForm' (ngSubmit)='addLesson()'>
+            <div>
+                <h2>
+                    <span class="material-icons">
+                        settings
+                    </span> General informations:
+                </h2>
+                <mat-form-field appearance="fill">
+                    <mat-label>Subject name</mat-label>
+                    <mat-select formControlName='name'>
+                        <mat-option *ngFor="let subject of subjects; let i = index" value={{subject}}>
+                            {{subject}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Teacher</mat-label>
+                    <mat-select formControlName='teacherId'>
+                        <mat-option *ngFor="let teacher of data.teachers; let i = index" value={{teacher.id}}>
+                            {{teacher.surname}} {{teacher.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Class</mat-label>
+                    <mat-select formControlName='className'>
+                        <mat-option *ngFor="let item of data.classes; let i = index" value={{item}}>
+                            {{item}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div>
+                <h2>
+                    <span class="material-icons">
+                        event
+                    </span> Schedule:
+                </h2>
+                <mat-form-field appearance="fill">
+                    <mat-label>Day</mat-label>
+                    <mat-select formControlName='day'>
+                        <mat-option *ngFor="let day of days; let i = index" value={{i+1}}>
+                            {{day}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <span class="space10px"></span>
+                <mat-form-field appearance="fill">
+                    <mat-label>Lesson number</mat-label>
+                    <mat-select formControlName='lesson'>
+                        <mat-option *ngFor="let lesson of [].constructor(8); let i = index" value={{i+1}}>
+                            Lesson {{i+1}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <span class="space10px"></span>
+            <button mat-raised-button type='submit' color='primary'>Add lesson</button>
+        </form>
+    </mat-card>
+</div>

@@ -12,8 +12,6 @@ namespace SchoolRegister.Models
         public string Email { get; set; }
         public string Password { get; set; }
         public Role Role { get; set; }
-        //public ICollection<Message> SendedMessages { get; set; } = new HashSet<Message>();
-        //public ICollection<Message> RecivedMessages { get; set; } = new HashSet<Message>();
 
         public User() { }
 

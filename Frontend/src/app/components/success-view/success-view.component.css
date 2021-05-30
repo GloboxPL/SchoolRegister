@@ -1,0 +1,29 @@
+.card {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.example-container {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+
+.login {
+    margin: 50px;
+    margin-left: 25%;
+    margin-right: 25%
+}
+
+.success {
+    font-weight: 500;
+    font-size: large;
+}
+
+.material-icons {
+    color: green;
+    font-size: 100px;
+}
