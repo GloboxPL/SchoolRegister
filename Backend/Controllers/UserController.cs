@@ -58,13 +58,13 @@ namespace SchoolRegister.Controllers
             return Ok();
         }
 
-        [HttpPost("student/create")]
+        [HttpPost("user/create")]
         [Authorize(Roles = "Admin")]
-        public IActionResult CreateStudents([FromBody] IEnumerable<Student> students)
+        public IActionResult CreateUsers([FromBody] IEnumerable<User> users)
         {
             try
             {
-                _users.AddUsers(students);
+                _users.AddUsers(users);
                 return Ok();
             }
             catch (DataMisalignedException)
@@ -73,35 +73,22 @@ namespace SchoolRegister.Controllers
             }
         }
 
-        [HttpPost("teacher/create")]
+        [HttpGet("user/teachers-list")]
         [Authorize(Roles = "Admin")]
-        public IActionResult CreateTeachers([FromBody] IEnumerable<Teacher> teachers)
+        public IActionResult GetTeachers()
         {
-            try
-            {
-                _users.AddUsers(teachers);
-                return Ok();
-            }
-            catch (DataMisalignedException)
-            {
-                return Conflict();
-            }
+            var teachers = _users.GetTeachers();
+            return Json(teachers);
         }
 
-        [HttpPost("parents/create")]
+        [HttpGet("user/students-no-class")]
         [Authorize(Roles = "Admin")]
-        public IActionResult CreateParents([FromBody] IEnumerable<Parent> parents)
+        public IActionResult GetStudentsWithoutClass()
         {
-            try
-            {
-                _users.AddUsers(parents);
-                return Ok();
-            }
-            catch (DataMisalignedException)
-            {
-                return Conflict();
-            }
+            var students = _users.GetStudentsWithoutClass();
+            return Json(students);
         }
+
 
         [AllowAnonymous]
         [HttpPost("admin")]

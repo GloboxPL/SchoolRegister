@@ -10,7 +10,7 @@ import { DataService } from './services/data.service';
 export class AppComponent {
 
   constructor(private router: Router, public data: DataService) {
-    if (data.user.id < 0) {
+    if (data.user === undefined) {
       this.router.navigateByUrl('');
     }
   }

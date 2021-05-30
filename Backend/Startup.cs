@@ -50,6 +50,7 @@ namespace SchoolRegister
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
             {
                 options.LoginPath = "/login";
+                options.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.None;
             });
         }
 

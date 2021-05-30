@@ -9,6 +9,11 @@ namespace SchoolRegister.Models
 
         public Teacher() : base() { }
 
+        public Teacher(User user) : base(user)
+        {
+            Role = Role.Teacher;
+        }
+
         public Teacher(string name, string surname, string email, string password)
         : base(name, surname, email, password, Role.Teacher) { }
     }

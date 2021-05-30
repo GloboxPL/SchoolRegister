@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using SchoolRegister.Database;
 using SchoolRegister.Models;
+using SchoolRegister.Models.Dto;
 
 namespace SchoolRegister.Services
 {
@@ -17,10 +16,13 @@ namespace SchoolRegister.Services
             _repo = new MainDbRepository(context);
         }
 
-        public Group AddGroup(string name)
+        public Group AddGroup(NewGroupDto groupDto)
         {
-            Group group = new Group(name);
-            group = _repo.CreateGroup(group);
+            Group group = new Group(groupDto.Name);
+
+            group.Students = _repo.ReadStudents(groupDto.StudentsIds.ToArray()).ToList();
+            group.Teacher = _repo.ReadUser(groupDto.TeacherId) as Teacher;
+            _repo.CreateGroup(group);
             _repo.SaveChanges();
             return group;
         }

@@ -31,16 +31,27 @@ namespace SchoolRegister.Database
             return user;
         }
 
+        public IEnumerable<Teacher> ReadTeachers()
+        {
+            var teachers = _context.Teacher;
+            return teachers;
+        }
+
+        public IEnumerable<Student> ReadStudentsWithoutClass()
+        {
+            var students = _context.Students.Where(x => x.Group == null).AsEnumerable();
+            return students;
+        }
+
         public User UpdateUser(User user)
         {
             user = _context.Users.Update(user).Entity;
             return user;
         }
 
-        public Group CreateGroup(Group group)
+        public void CreateGroup(Group group)
         {
-            group = _context.Groups.Add(group).Entity;
-            return group;
+            _context.Groups.Add(group);
         }
 
         public Group UpdateGroup(Group group)

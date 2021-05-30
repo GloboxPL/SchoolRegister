@@ -5,6 +5,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using SchoolRegister.Database;
 using SchoolRegister.Models;
+using SchoolRegister.Models.Dto;
 
 namespace SchoolRegister.Services
 {
@@ -43,25 +44,26 @@ namespace SchoolRegister.Services
 
         public IEnumerable<User> AddUsers(IEnumerable<User> users)
         {
+            List<User> concreteUsers = new List<User>();
             foreach (var user in users)
             {
-                user.Password = Argon2.Hash(user.Password);
-                if (user is Student)
+                user.Password = Argon2.Hash("pass");
+                if (user.Role == Role.Student)
                 {
-                    user.Role = Role.Student;
+                    concreteUsers.Add(new Student(user));
                 }
-                else if (user is Teacher)
+                else if (user.Role == Role.Teacher)
                 {
-                    user.Role = Role.Teacher;
+                    concreteUsers.Add(new Teacher(user));
                 }
-                else if (user is Parent)
+                else if (user.Role == Role.Parent)
                 {
-                    user.Role = Role.Parent;
+                    concreteUsers.Add(new Parent(user));
                 }
             }
             if (IsValidUsers(users))
             {
-                _repo.CreateUsers(users);
+                _repo.CreateUsers(concreteUsers);
                 _repo.SaveChanges();
                 return users;
             }
@@ -79,12 +81,24 @@ namespace SchoolRegister.Services
             user.Password = String.Empty;
             return user;
         }
-        
+
+        public IEnumerable<UserMinDto> GetTeachers()
+        {
+            var teachers = _repo.ReadTeachers();
+            return teachers.Select(x => new UserMinDto(x));
+        }
+
+        public IEnumerable<UserMinDto> GetStudentsWithoutClass()
+        {
+            var students = _repo.ReadStudentsWithoutClass();
+            return students.Select(x => new UserMinDto(x));
+        }
+
         private bool IsValidUsers(IEnumerable<User> users)
         {
             foreach (var user in users)
             {
-                if (user.Name == null || user.Surname == null || user.Email == null || user.Password == null)
+                if (user.Name == null || user.Surname == null || user.Email == null)
                 {
                     return false;
                 }
@@ -95,9 +109,7 @@ namespace SchoolRegister.Services
         public void AddSeedUsers()
         {
             var users = new User[]{
-                new User("Jacek","Adamus","jacek@gmail.com","jacek",Role.Admin)//,
-                /* new Teacher("Piotr","Nowak","nowak@gmail.com","piotr"),
-                new Student("Michał","Kowalski","mike@gmail.com","michal"), */
+                new User("Jacek","Adamus","admin@mail.com","pass",Role.Admin)
             };
             _repo.CreateUsers(users);
             _repo.SaveChanges();

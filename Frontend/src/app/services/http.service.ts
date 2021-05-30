@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../models/User';
+import { UserMinDto } from '../models/UserMinDto';
+import { NewClassDto } from '../models/NewClassDto';
 
 @Injectable({
   providedIn: 'root'
@@ -27,5 +29,21 @@ export class HttpService {
 
   logOut(): void {
     this.http.post(this.PATH + 'logout', null, this.options).subscribe(value => { });
+  }
+
+  addNewUsers(users: User[]): void {
+    this.http.post(this.PATH + 'user/create', users, this.options).subscribe(value => { });
+  }
+
+  getTeachers(): Observable<UserMinDto[]> {
+    return this.http.get<UserMinDto[]>(this.PATH + 'user/teachers-list', this.options);
+  }
+
+  getStudentsWithoutClass(): Observable<UserMinDto[]> {
+    return this.http.get<UserMinDto[]>(this.PATH + 'user/students-no-class', this.options);
+  }
+
+  addNewClass(newClass: NewClassDto): void {
+    this.http.post(this.PATH + 'create-class', newClass, this.options).subscribe(value => { });
   }
 }

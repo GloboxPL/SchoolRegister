@@ -1,0 +1,12 @@
+<div class="timetable">
+    <mat-grid-list cols="6" rowHeight="4:1">
+        <mat-grid-tile *ngFor="let block of tiles; let i = index" [style.background]="block.color">
+            <div *ngIf="i<6 || modulo(i,6)==0; else template" class="headers">
+                {{block.text1}}<br> {{block.text2}}
+            </div>
+            <ng-template #template>
+                {{block.text1}}<br> {{block.text2}}
+            </ng-template>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>

@@ -25,6 +25,14 @@ namespace SchoolRegister.Models
             Password = Argon2.Hash(password);
             Role = role;
         }
+
+        protected User(User user)
+        {
+            Name = user.Name;
+            Surname = user.Surname;
+            Email = user.Email;
+            Password = user.Password;
+        }
     }
 
     public enum Role

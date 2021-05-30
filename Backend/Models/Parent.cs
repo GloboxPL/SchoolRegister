@@ -7,5 +7,10 @@ namespace SchoolRegister.Models
         public virtual ICollection<Student> Children { get; set; } = new HashSet<Student>();
 
         public Parent() { }
+
+        public Parent(User user) : base(user)
+        {
+            Role = Role.Parent;
+        }
     }
 }

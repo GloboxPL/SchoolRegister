@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SchoolRegister.Database;
@@ -9,15 +10,31 @@ using SchoolRegister.Database;
 namespace SchoolRegister.Migrations
 {
     [DbContext(typeof(MainDbContext))]
-    partial class MainDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210529184528_IdMig")]
+    partial class IdMig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
                 .HasAnnotation("ProductVersion", "5.0.5")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+            modelBuilder.Entity("GroupStudent", b =>
+                {
+                    b.Property<string>("GroupsName")
+                        .HasColumnType("text");
+
+                    b.Property<int>("StudentsId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("GroupsName", "StudentsId");
+
+                    b.HasIndex("StudentsId");
+
+                    b.ToTable("GroupStudent");
+                });
 
             modelBuilder.Entity("ParentStudent", b =>
                 {
@@ -63,6 +80,9 @@ namespace SchoolRegister.Migrations
                 {
                     b.Property<string>("Name")
                         .HasColumnType("text");
+
+                    b.Property<bool>("IsWholeClass")
+                        .HasColumnType("boolean");
 
                     b.Property<int?>("TeacherId")
                         .HasColumnType("integer");
@@ -180,11 +200,6 @@ namespace SchoolRegister.Migrations
                 {
                     b.HasBaseType("SchoolRegister.Models.User");
 
-                    b.Property<string>("GroupName")
-                        .HasColumnType("text");
-
-                    b.HasIndex("GroupName");
-
                     b.HasDiscriminator().HasValue("Student");
                 });
 
@@ -193,6 +208,21 @@ namespace SchoolRegister.Migrations
                     b.HasBaseType("SchoolRegister.Models.User");
 
                     b.HasDiscriminator().HasValue("Teacher");
+                });
+
+            modelBuilder.Entity("GroupStudent", b =>
+                {
+                    b.HasOne("SchoolRegister.Models.Group", null)
+                        .WithMany()
+                        .HasForeignKey("GroupsName")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SchoolRegister.Models.Student", null)
+                        .WithMany()
+                        .HasForeignKey("StudentsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ParentStudent", b =>
@@ -264,20 +294,9 @@ namespace SchoolRegister.Migrations
                     b.Navigation("Student");
                 });
 
-            modelBuilder.Entity("SchoolRegister.Models.Student", b =>
-                {
-                    b.HasOne("SchoolRegister.Models.Group", "Group")
-                        .WithMany("Students")
-                        .HasForeignKey("GroupName");
-
-                    b.Navigation("Group");
-                });
-
             modelBuilder.Entity("SchoolRegister.Models.Group", b =>
                 {
                     b.Navigation("Lessons");
-
-                    b.Navigation("Students");
                 });
 
             modelBuilder.Entity("SchoolRegister.Models.Teacher", b =>

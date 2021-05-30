@@ -1,0 +1,14 @@
+mat-grid-tile {
+    background: white;
+}
+
+.timetable {
+    background-color: rgb(180, 180, 180);
+    border-style: solid;
+    border-color: black;
+}
+
+.headers {
+    color: white;
+    font-weight: 500;
+}

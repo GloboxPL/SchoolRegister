@@ -6,32 +6,36 @@
                     person_add
                 </span>
             </button>
-            <span class="space"></span>
+            <span class="space10px"></span>
             <button mat-mini-fab type="button" color='primary' (click)="popLastElement()" matTooltip="Remove last user">
                 <span class="material-icons"> person_remove </span>
             </button>
+            <span class="space10px"></span>
+            <span *ngIf="isSuccess" class="success">
+                Users successfuly added.
+            </span>
         </div>
         <form [formGroup]='addUserForm' (ngSubmit)="SaveData()">
             <div formArrayName="users" *ngFor="let item of getControls(); let i = index">
                 <mat-divider></mat-divider>
                 <div formGroupName={{i}}>
                     <span class="numeration">{{i+1}}</span>
-                    <span class="space"></span>
+                    <span class="space10px"></span>
                     <mat-form-field appearance="fill">
                         <mat-label>Name</mat-label>
                         <input matInput placeholder=John formControlName="name">
                     </mat-form-field>
-                    <span class="space"></span>
+                    <span class="space10px"></span>
                     <mat-form-field appearance="fill">
                         <mat-label>Surname</mat-label>
                         <input matInput placeholder=Smith formControlName="surname">
                     </mat-form-field>
-                    <span class="space"></span>
+                    <span class="space10px"></span>
                     <mat-form-field appearance="fill">
                         <mat-label>Email</mat-label>
                         <input matInput type="email" placeholder=user@email.com formControlName="email">
                     </mat-form-field>
-                    <span class="space"></span>
+                    <span class="space10px"></span>
                     <mat-form-field appearance="fill">
                         <mat-label>Role</mat-label>
                         <mat-select formControlName="role">
@@ -45,10 +49,11 @@
             </div>
             <mat-divider></mat-divider>
             <div class="add">
-                <button mat-raised-button type='submit' color='primary'>Add users</button>
-                <span class="space"></span>
-                <span *ngIf="isError" class="error">Invalid data! Enter appropriate names, surnames, emails and choose
-                    role.</span>
+                <button mat-raised-button type='submit' color='primary' *ngIf="usersArray.length>0">Add users</button>
+                <span class="space10px"></span>
+                <span *ngIf="isError" class="error">
+                    Invalid data! Enter appropriate names, surnames, emails and choose role.
+                </span>
             </div>
         </form>
     </mat-card>

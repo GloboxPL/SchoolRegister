@@ -16,5 +16,13 @@ namespace SchoolRegister.Database
 
         public MainDbContext(DbContextOptions<MainDbContext> options) : base(options) { }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.HasKey(x => x.Id);
+            });
+        }
+
     }
 }

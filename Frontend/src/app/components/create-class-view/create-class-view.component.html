@@ -1,0 +1,33 @@
+<div>
+    <mat-card class="card">
+        <mat-card-header>
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Class name</mat-label>
+                    <input matInput placeholder=1a>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Main teacher</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let teacher of data.teachers; let i = index" value={{teacher.id}}>
+                            {{teacher.surname}} {{teacher.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </mat-card-header>
+        <div>
+            <section>
+                <ul>
+                    <li *ngFor="let student of data.studentsWithoutClass">
+                        <mat-checkbox>
+                            {{student.surname}} {{student.name}}
+                        </mat-checkbox>
+                    </li>
+                </ul>
+            </section>
+        </div>
+    </mat-card>
+</div>

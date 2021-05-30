@@ -10,7 +10,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
-import { AddSubjectComponent } from './components/add-subject/add-subject.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { AddUsersViewComponent } from './components/add-users-view/add-users-view.component';
@@ -18,16 +17,19 @@ import {MatCardModule} from '@angular/material/card';
 import {MatDividerModule} from '@angular/material/divider';
 import { TimetableViewComponent } from './components/timetable-view/timetable-view.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import { AddClassViewComponent } from './components/add-class-view/add-class-view.component';
+import { CreateClassViewComponent } from './components/create-class-view/create-class-view.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatGridListModule} from '@angular/material/grid-list';
+import { TimetableComponent } from './components/timetable/timetable.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    AddSubjectComponent,
     AddUsersViewComponent,
     TimetableViewComponent,
-    AddClassViewComponent
+    CreateClassViewComponent,
+    TimetableComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +46,9 @@ import { AddClassViewComponent } from './components/add-class-view/add-class-vie
     CommonModule,
     MatCardModule,
     MatDividerModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatCheckboxModule,
+    MatGridListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

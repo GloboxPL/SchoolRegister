@@ -17,11 +17,3 @@
     margin-left: 25%;
     margin-right: 25%
 }
-
-.card-wrapper {
-    display: flex;
-    align-items: center;
-    align-content: center;
-    margin-right: auto;
-    margin-left: auto;
-}

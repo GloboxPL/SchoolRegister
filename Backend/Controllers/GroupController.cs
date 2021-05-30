@@ -1,12 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SchoolRegister.Database;
 using SchoolRegister.Models;
+using SchoolRegister.Models.Dto;
 using SchoolRegister.Services;
 
 namespace SchoolRegister.Controllers
@@ -22,20 +18,12 @@ namespace SchoolRegister.Controllers
             _groups = new GroupsManagment(context);
         }
 
-        [HttpPost("group/create")]
+        [HttpPost("create-class")]
         [Authorize(Roles = "Admin")]
-        public ActionResult CreateGroup([FromForm] string name)
+        public ActionResult CreateGroup([FromBody] NewGroupDto groupDto)
         {
-            Group group = _groups.AddGroup(name);
+            Group group = _groups.AddGroup(groupDto);
             return Json(group);
-        }
-
-        [HttpPost("group/students")]
-        [Authorize(Roles = "Admin")]
-        public ActionResult AddStudentsToGroup([FromBody] GroupIn groupIn)
-        {
-            Group group = _groups.AddStudentsToGroup(groupIn.Name, groupIn.Ids);
-            return Ok();
         }
 
         [HttpPost("lesson")]

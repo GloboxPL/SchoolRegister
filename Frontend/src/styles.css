@@ -39,3 +39,20 @@ body {
 .error {
     color: red;
 }
+
+.success {
+    color: green;
+}
+
+.space10px {
+    min-width: 10px;
+    margin-left: 10px;
+}
+
+.card-wrapper {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    margin-right: auto;
+    margin-left: auto;
+}

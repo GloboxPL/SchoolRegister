@@ -15,6 +15,7 @@ export class AddUsersViewComponent {
   addUserForm: FormGroup;
   usersArray: any[] = [];
   isError = false;
+  isSuccess = false;
   private users = new Array<User>();
 
   constructor(private fb: FormBuilder, private router: Router, private data: DataService) {
@@ -22,20 +23,23 @@ export class AddUsersViewComponent {
   }
 
   createForm(): FormGroup {
-    this.usersArray.push(this.buildFormDynamic());
     return this.fb.group({
       users: this.fb.array(this.usersArray)
     });
   }
+
   pushNewElement(): void {
+    this.isSuccess = false;
     if (this.usersArray.length >= 10) {
       return;
     }
+    this.usersArray.push(this.buildFormDynamic());
     this.addUserForm = this.createForm();
   }
 
   popLastElement(): void {
-    if (this.usersArray.length < 2) {
+    this.isSuccess = false;
+    if (this.usersArray.length < 1) {
       return;
     }
     this.usersArray.pop();
@@ -49,7 +53,7 @@ export class AddUsersViewComponent {
       name: '',
       surname: '',
       email: '',
-      role: Role.None
+      role: null
     });
   }
 
@@ -71,10 +75,12 @@ export class AddUsersViewComponent {
           break;
         default:
           this.isError = true;
+          this.isSuccess = false;
           return;
       }
       if (item.name.length < 2 || item.surname.length < 2 || item.email.length < 6) {
         this.isError = true;
+        this.isSuccess = false;
         this.users = [];
         return;
       }
@@ -85,10 +91,18 @@ export class AddUsersViewComponent {
 
   SaveData(): void {
     this.readForm();
-    console.log(this.users);
+    this.data.addNewUsers(this.users);
+    this.clean();
   }
 
   getControls(): AbstractControl[] {
     return (this.addUserForm.controls.users as FormArray).controls;
+  }
+
+  clean(): void {
+    this.isSuccess = true;
+    this.addUserForm.reset();
+    this.usersArray = [];
+    this.addUserForm = this.createForm();
   }
 }

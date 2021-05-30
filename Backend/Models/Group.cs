@@ -7,7 +7,6 @@ namespace SchoolRegister.Models
     {
         [Key()]
         public string Name { get; protected set; }
-        public bool IsWholeClass { get; set; } = true;
         public virtual IList<Student> Students { get; set; } = new List<Student>();
         public virtual ICollection<Lesson> Lessons { get; set; } = new HashSet<Lesson>();
         public virtual Teacher Teacher { get; set; } = null;
@@ -18,11 +17,5 @@ namespace SchoolRegister.Models
         {
             Name = name;
         }
-    }
-
-    public class GroupIn
-    {
-        public string Name { get; set; }
-        public int[] Ids { get; set; }
     }
 }
