@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Lesson } from '../models/Lesson';
 import { NewClassDto } from '../models/NewClassDto';
 import { NewLessonDto } from '../models/NewLessonDto';
+import { Role } from '../models/Role';
 import { User } from '../models/User';
 import { UserMinDto } from '../models/UserMinDto';
 import { HttpService } from './http.service';
@@ -21,6 +22,8 @@ export class DataService {
   teachers: UserMinDto[] | undefined;
   classes: string[] = [];
   lessons: Lesson[] = [];
+  editedLesson: Lesson | undefined = undefined;
+  studentsList: UserMinDto[] = [];
 
   signIn(email: string, password: string): void {
     this.http.signIn(email, password).subscribe(value => {
@@ -45,7 +48,9 @@ export class DataService {
         case 2:
           this.getLessonsByTeacher(this.user.id);
           break;
-
+        case 0:
+          this.getLessonsByStudent(this.user.id);
+          break;
         default:
           break;
       }
@@ -94,10 +99,29 @@ export class DataService {
     });
   }
 
+  getLessonsByStudent(id: number): void {
+    this.http.getLessonsByStudent(id).subscribe(value => {
+      this.lessons = value;
+    });
+  }
+
   editLesson(id: number | null): void {
     if (id === null) {
       return;
     }
-    this.router.navigateByUrl('success');
+    if (this.user !== undefined) {
+      if (!(this.user.role === Role.Teacher)) {
+        return;
+      }
+    }
+    this.editedLesson = this.lessons.find(x => x.id === id);
+    this.getStudentsByClass();
+    this.router.navigateByUrl('edit-lesson');
+  }
+
+  getStudentsByClass(): void {
+    if (this.editedLesson !== undefined) {
+      this.http.getStudentsByClass(this.editedLesson.className).subscribe(value => this.studentsList = value);
+    }
   }
 }

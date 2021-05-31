@@ -60,4 +60,12 @@ export class HttpService {
   getLessonsByTeacher(id: number): Observable<Lesson[]> {
     return this.http.get<Lesson[]>(this.PATH + 'lessons-teacher/' + id, this.options);
   }
+
+  getLessonsByStudent(id: number): Observable<Lesson[]> {
+    return this.http.get<Lesson[]>(this.PATH + 'lessons-student/' + id, this.options);
+  }
+
+  getStudentsByClass(name: string): Observable<UserMinDto[]> {
+    return this.http.get<UserMinDto[]>(this.PATH + 'lesson-students/' + name, this.options);
+  }
 }

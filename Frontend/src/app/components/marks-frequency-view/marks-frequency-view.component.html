@@ -1,0 +1,37 @@
+<div>
+    <mat-card class="card">
+        <div class="box">
+            <span class="space10px"></span>
+            <div>
+                <h2>
+                    <span class="material-icons">
+                        fact_check
+                    </span> Frequency
+                </h2>
+                <mat-list>
+                    <mat-list-item *ngFor="let fr of freq; let i = index">
+                        <span class="material-icons">
+                            task_alt
+                        </span>
+                        <span class="space10px"></span> Day {{fr.d}}, {{fr.s}}
+                        <mat-divider></mat-divider>
+                    </mat-list-item>
+                </mat-list>
+            </div>
+        </div>
+        <span class="space10px"></span>
+        <div class="box">
+            <h2>
+                <span class="material-icons">
+                    grade
+                </span> Marks
+            </h2>
+            <mat-list>
+                <mat-list-item *ngFor="let mark of marks; let i = index">
+                    {{mark.m}}, {{mark.s}}
+                    <mat-divider></mat-divider>
+                </mat-list-item>
+            </mat-list>
+        </div>
+    </mat-card>
+</div>

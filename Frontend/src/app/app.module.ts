@@ -25,6 +25,9 @@ import { AddLessonViewComponent } from './components/add-lesson-view/add-lesson-
 import { SuccessViewComponent } from './components/success-view/success-view.component';
 import { WelcomeViewComponent } from './components/welcome-view/welcome-view.component';
 import { LessonEditViewComponent } from './components/lesson-edit-view/lesson-edit-view.component';
+import {MatSliderModule} from '@angular/material/slider';
+import { MarksFrequencyViewComponent } from './components/marks-frequency-view/marks-frequency-view.component';
+import {MatListModule} from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,8 @@ import { LessonEditViewComponent } from './components/lesson-edit-view/lesson-ed
     AddLessonViewComponent,
     SuccessViewComponent,
     WelcomeViewComponent,
-    LessonEditViewComponent
+    LessonEditViewComponent,
+    MarksFrequencyViewComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +60,9 @@ import { LessonEditViewComponent } from './components/lesson-edit-view/lesson-ed
     MatDividerModule,
     MatTooltipModule,
     MatCheckboxModule,
-    MatGridListModule
+    MatGridListModule,
+    MatSliderModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,11 +1,8 @@
-using System.Collections;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using SchoolRegister.Database;
 using SchoolRegister.Models;
+using SchoolRegister.Models.Dto;
 
 namespace SchoolRegister.Services
 {
@@ -18,25 +15,34 @@ namespace SchoolRegister.Services
             _repo = new MainDbRepository(context);
         }
 
-        public void CheckAttendance(Dictionary<int, AttendanceStatus> attandances, int lessonId)
-        {
-            Lesson lesson = _repo.ReadLesson(lessonId);
-            var attandancesList = new List<Attendance>();
-            var students = lesson.Group.Students;
-            foreach (var item in attandances)
-            {
-                var student = students.Where(x => x.Id == item.Key).Single();
-                var attandance = new Attendance(lesson, student, item.Value);
-                attandancesList.Add(attandance);
-            }
-            _repo.CreateAttendance(attandancesList);
-            _repo.SaveChanges();
-        }
-
         public IEnumerable<Lesson> GetTeacherLessons(int id)
         {
             var lessons = _repo.ReadLessonsByTeacher(id);
             return lessons;
+        }
+
+        public IEnumerable<Lesson> GetStudentLessons(int id)
+        {
+            var lessons = _repo.ReadLessonsByStudent(id);
+            return lessons;
+        }
+
+        public IEnumerable<UserMinDto> GetStudentsByClass(string name)
+        {
+            var students = _repo.ReadStudentsByClass(name);
+            return students.Select(x => new UserMinDto(x));
+        }
+
+        public void CheckFrequency(int id, int[] ids)
+        {
+            var lessons = _repo.ReadLesson(id);
+            foreach (var studentId in ids)
+            {
+                var student = _repo.ReadStudent(id);
+                var attendance = new Attendance(lessons, student);
+                _repo.CreateAttendance(attendance);
+            }
+            _repo.SaveChanges();
         }
     }
 }

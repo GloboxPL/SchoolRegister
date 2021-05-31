@@ -3,6 +3,7 @@ using SchoolRegister.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolRegister.Database
 {
@@ -41,6 +42,11 @@ namespace SchoolRegister.Database
         public IEnumerable<Student> ReadStudentsWithoutClass()
         {
             var students = _context.Students.Where(x => x.Group == null).AsEnumerable();
+            return students;
+        }
+        public IEnumerable<Student> ReadStudentsByClass(string name)
+        {
+            var students = _context.Students.Where(x => x.Group.Name == name).AsEnumerable();
             return students;
         }
 
@@ -85,6 +91,12 @@ namespace SchoolRegister.Database
             return lesson;
         }
 
+        public Student ReadStudent(int id)
+        {
+            var student = _context.Students.Where(x => x.Id == id).Single();
+            return student;
+        }
+
         public IEnumerable<string> ReadAllGroups()
         {
             var groups = _context.Groups.Select(x => x.Name).AsEnumerable();
@@ -99,13 +111,20 @@ namespace SchoolRegister.Database
 
         public IEnumerable<Lesson> ReadLessonsByTeacher(int id)
         {
-            var lessons = _context.Lessons.Where(x => x.Teacher.Id == id).AsEnumerable();
+            var lessons = _context.Lessons.Where(x => x.Teacher.Id == id).Include(x => x.Group).AsEnumerable();
             return lessons;
         }
 
-        public void CreateAttendance(IEnumerable<Attendance> attendances)
+        public IEnumerable<Lesson> ReadLessonsByStudent(int id)
         {
-            _context.Attendances.AddRange(attendances);
+            var student = _context.Students.Where(x => x.Id == id).Include(x => x.Group).Single();
+            var lessons = _context.Lessons.Where(x => x.Group.Name == student.Group.Name).Include(x => x.Group).AsEnumerable();
+            return lessons;
+        }
+
+        public void CreateAttendance(Attendance attendance)
+        {
+            _context.Attendances.Add(attendance);
         }
 
         public void SaveChanges()

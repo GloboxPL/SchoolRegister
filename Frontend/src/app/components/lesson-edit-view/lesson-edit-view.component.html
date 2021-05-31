@@ -1,1 +1,61 @@
-<p>lesson-edit-view works!</p>
+<div>
+    <mat-card class="card">
+        <div class="box" *ngIf="isVisible">
+            <div>
+                <h2>
+                    <span class="material-icons">
+                        topic
+                    </span> Lesson topic
+                </h2>
+                <form [formGroup]='topicForm' (ngSubmit)='save()'>
+                    <mat-form-field appearance="fill" class="topic">
+                        <mat-label>Topic</mat-label>
+                        <input matInput formControlName='topic'>
+                    </mat-form-field>
+                    <span class="space10px"></span>
+                    <button mat-raised-button type='submit' color='primary'>Save topic and frequency</button>
+                </form>
+            </div>
+            <span class="space10px"></span>
+            <div>
+                <h2>
+                    <span class="material-icons">
+                        fact_check
+                    </span> Frequency
+                </h2>
+                <section>
+                    <ul>
+                        <li *ngFor="let student of data.studentsList; let i = index">
+                            <mat-checkbox [(ngModel)]="selected[i]">
+                                {{student.surname}} {{student.name}}
+                            </mat-checkbox>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+        <span class="space10px"></span>
+        <div class="box">
+            <h2>
+                <span class="material-icons">
+                    grade
+                </span> Marks
+            </h2>
+            <form [formGroup]='markForm' (ngSubmit)='addMark()'>
+                <mat-slider thumbLabel [displayWith]="formatLabel" vertical tickInterval="1" step="1" min="1" max="6" formControlName='mark'>
+                </mat-slider>
+                <span class="space10px"></span>
+                <mat-form-field appearance="fill">
+                    <mat-label>Student</mat-label>
+                    <mat-select formControlName='id'>
+                        <mat-option *ngFor="let student of data.studentsList; let i = index" value={{student.id}}>
+                            {{student.surname}} {{student.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <span class="space10px"></span>
+                <button mat-raised-button type='submit' color='primary'>Add mark</button>
+            </form>
+        </div>
+    </mat-card>
+</div>

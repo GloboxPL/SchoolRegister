@@ -1,3 +1,4 @@
+using System.Linq;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using SchoolRegister.Database;
 using SchoolRegister.Models;
 using SchoolRegister.Services;
+using Backend.Models.Dto;
 
 namespace SchoolRegister.Controllers
 {
@@ -22,19 +24,33 @@ namespace SchoolRegister.Controllers
             _lessons = new LessonsManagment(context);
         }
 
-        [HttpPost("lesson/attendance")]
-        [Authorize(Roles = "Admin")]
-        public ActionResult CheckAttendance([FromBody] Dictionary<int, AttendanceStatus> attendances, [FromQuery] int lessonId)
-        {
-            _lessons.CheckAttendance(attendances, lessonId);
-            return Ok();
-        }
-
         [HttpGet("lessons-teacher/{id}")]
         public ActionResult GetTeacherLessons([FromRoute] int id)
         {
-            var lessons = _lessons.GetTeacherLessons(id);
+            var lessons = _lessons.GetTeacherLessons(id).Select(x => new LessonDto(x));
             return Json(lessons);
         }
+
+        [HttpGet("lessons-student/{id}")]
+        public ActionResult GetStudentLessons([FromRoute] int id)
+        {
+            var lessons = _lessons.GetStudentLessons(id).Select(x => new LessonDto(x));
+            return Json(lessons);
+        }
+
+        [HttpPost("frequency/{id}")]
+        public ActionResult CheckFrequency([FromRoute] int id, [FromBody] int[] studentsIds)
+        {
+            _lessons.CheckFrequency(id, studentsIds);
+            return Ok();
+        }
+
+        [HttpGet("lesson-students/{name}")]
+        public ActionResult GetStudentsByClass([FromRoute] string name)
+        {
+            var lessons = _lessons.GetStudentsByClass(name);
+            return Json(lessons);
+        }
+
     }
 }

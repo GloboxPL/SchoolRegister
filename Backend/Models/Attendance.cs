@@ -1,28 +1,19 @@
-using System.Collections.Generic;
-
 namespace SchoolRegister.Models
 {
     public class Attendance
     {
         public int Id { get; protected set; }
         public virtual Lesson Lesson { get; set; }
-        public virtual Student Students { get; set; }
-        public AttendanceStatus Status { get; set; }
+        public virtual Student Student { get; set; }
+        public bool IsPresent { get; set; }
 
         public Attendance() { }
 
-        public Attendance(Lesson lesson, Student students, AttendanceStatus status)
+        public Attendance(Lesson lesson, Student student, bool isPresent = true)
         {
             Lesson = lesson;
-            Students = students;
-            Status = status;
+            Student = student;
+            IsPresent = isPresent;
         }
-    }
-
-    public enum AttendanceStatus
-    {
-        Present,
-        Absent,
-        Late
     }
 }

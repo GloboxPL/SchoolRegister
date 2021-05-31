@@ -1,7 +1,7 @@
 export interface Lesson {
 
     id: number;
-    group: string;
+    className: string;
     subject: string;
     day: number;
     time: number;
